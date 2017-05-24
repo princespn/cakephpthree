@@ -20,6 +20,9 @@ class AdminListingsController extends AppController
      */
     public function index()
     {
+		$this->set('title', 'Master website prices details.');
+		
+		
         $adminListings = $this->paginate($this->AdminListings);
 
         $this->set(compact('adminListings'));
@@ -73,6 +76,8 @@ class AdminListingsController extends AppController
      */
     public function edit($id = null)
     {
+		$this->set('title', 'Update Master website prices details.');
+		
         $adminListing = $this->AdminListings->get($id, [
             'contain' => []
         ]);

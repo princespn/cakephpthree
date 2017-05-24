@@ -20,6 +20,9 @@ class MainListingsController extends AppController
      */
     public function index()
     {
+		$this->set('title', 'Diagonasis prices details.');
+		
+		
         $this->paginate = [
             'contain' => ['Channels']
         ];

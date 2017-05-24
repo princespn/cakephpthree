@@ -20,6 +20,9 @@ class MasterListingsController extends AppController
      */
     public function display()
     {
+		$this->set('title', 'Master  prices details.');
+		
+
         $this->paginate = [
             'contain' => ['Channels']
         ];

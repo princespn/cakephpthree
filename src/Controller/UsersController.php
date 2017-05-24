@@ -27,6 +27,8 @@ class UsersController extends AppController
      */
     public function index()
     {
+		$this->set('title', 'User details.');
+		
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -89,6 +91,7 @@ class UsersController extends AppController
      */
     public function add()
     {
+		$this->set('title', 'Add User');
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -112,6 +115,8 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+		$this->set('title', 'User detail Update.');
+		
         $user = $this->Users->get($id, [
             'contain' => []
         ]);

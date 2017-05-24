@@ -18,7 +18,7 @@ echo $csv->render($filename);
 }else{	
 ?>
 <?php $actual_link = 'http://'.$_SERVER['HTTP_HOST'];?>
-<?php echo $this->Session->flash(); ?>
+<?php // echo $this->request->session->flash(); ?>
  <hr>
 <h1 class="sub-header"><?=  __('Linnworks Codes Database');?> </h1>
 <?php  // echo $form->create('InventoryCode',array('action'=>'index','id'=>'saveForm')); ?>

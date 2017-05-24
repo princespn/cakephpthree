@@ -3,37 +3,86 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $adminListing->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $adminListing->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Admin Listings'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="adminListings form large-9 medium-8 columns content">
-    <?= $this->Form->create($adminListing) ?>
-    <fieldset>
-        <legend><?= __('Edit Admin Listing') ?></legend>
-        <?php
-            echo $this->Form->control('web_sku');
-            echo $this->Form->control('linnworks_code');
-            echo $this->Form->control('web_price_uk');
-            echo $this->Form->control('web_sale_price_uk');
-            echo $this->Form->control('web_price_fr');
-            echo $this->Form->control('web_sale_price_fr');
-            echo $this->Form->control('web_price_de');
-            echo $this->Form->control('web_sale_price_de');
-            echo $this->Form->control('web_price_dm');
-            echo $this->Form->control('web_sale_price_dm');
-            echo $this->Form->control('web_price_tesco');
-            echo $this->Form->control('web_sale_price_tesco');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+   <?= $this->Form->create($adminListing) ?>
+<h1 class="sub-header"><?=__('Edit Website price listings');?></h1>
+<hr>
+<div class="row">
+      <div class="col-lg-5 col-lg-offset-3">
+                        <div class="panel panel-info">
+                          <div class="panel-heading custom-panel-heading"><?php __('Edit Listings');?></div>
+                          <div class="panel-body form-horizontal">
+                                <div class="form-group">          
+                                  <div class="col-sm-9">
+                                  <?= $this->Form->hidden('id');?>
+                                  </div>
+                                </div>        
+                                <div class="form-group">
+                                 <div class="col-sm-9">
+                                       <?= $this->Form->control('web_sku',array('readonly'=>'readonly','class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                 <div class="col-sm-9">
+                                       <?php echo $this->Form->control('linnworks_code',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_price_uk',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_sale_price_uk',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_price_fr',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_sale_price_fr',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                               <div class="form-group">
+                                 <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_price_de',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                               <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_sale_price_de',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                              <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_price_dm',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                 <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_sale_price_dm',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                              <div class="form-group">
+                                 <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_price_tesco',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo $this->Form->control('web_sale_price_tesco',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                              <div class="panel panel-default">
+                                    <div class="panel-body">
+                                      <?php echo $this->Form->button('Update', array('type' => 'submit','class' =>'btn btn-info'));  ?>  
+                                    </div>
+                               </div>   
+                         </div>
+                 </div>
+         </div>
 </div>
+ <?= $this->Form->end() ?>

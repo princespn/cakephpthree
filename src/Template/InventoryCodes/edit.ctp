@@ -3,28 +3,39 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $inventoryCode->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $inventoryCode->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Inventory Codes'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="inventoryCodes form large-9 medium-8 columns content">
-    <?= $this->Form->create($inventoryCode) ?>
-    <fieldset>
-        <legend><?= __('Edit Inventory Code') ?></legend>
-        <?php
-            echo $this->Form->control('linnworks_code');
-            echo $this->Form->control('product_name');
-            echo $this->Form->control('category');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<?= $this->Form->create($inventoryCode) ?>
+<h1 class="sub-header"><?=__('Edit Linnworks Code Information Data');?></h1>
+  <hr>
+  <div class="row">
+      <div class="col-lg-5 col-lg-offset-3">
+                        <div class="panel panel-info">
+                          <div class="panel-heading custom-panel-heading"><?= __('Edit Linnworks code');?></div>
+                          <div class="panel-body form-horizontal">
+                                  
+                                 <div class="form-group">
+                                
+                                  <div class="col-sm-9">
+                                       <?php echo  $this->Form->control('linnworks_code',array('readonly'=>'readonly','class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="col-sm-9">
+                                       <?php echo  $this->Form->control('product_name',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="col-sm-9">
+                                       <?php echo  $this->Form->control('category',array('class'=>'form-control')); ?>
+                                  </div>
+                                </div>
+                                
+                              <div class="panel panel-default">
+                                    <div class="panel-body">								
+                                       <?= $this->Form->button('Update', array('type' => 'submit','class' =>'btn btn-info'));  ?>  
+                                    </div>
+                               </div>   
+                         </div>
+                 </div>
+         </div>
 </div>
+<?= $this->Form->end();
