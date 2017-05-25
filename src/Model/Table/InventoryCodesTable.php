@@ -32,7 +32,8 @@ class InventoryCodesTable extends Table
 
         $this->setTable('inventory_codes');
         $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id');	
+				
     }
 
     /**

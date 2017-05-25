@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * MainListings Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Channels
+ * @property \Cake\ORM\Association\BelongsTo $InventoryCodes
  *
  * @method \App\Model\Entity\MainListing get($primaryKey, $options = [])
  * @method \App\Model\Entity\MainListing newEntity($data = null, array $options = [])
@@ -36,8 +36,9 @@ class MainListingsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Channels', [
-            'foreignKey' => 'channel_id',
+        $this->belongsTo('InventoryCodes', [
+            'foreignKey' => false,
+			'conditions' => 'MainListings.linnworks_code = InventoryCodes.linnworks_code',
             'joinType' => 'INNER'
         ]);
     }
@@ -129,7 +130,7 @@ class MainListingsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['channel_id'], 'Channels'));
+        $rules->add($rules->existsIn(['linnworks_code'], 'InventoryCodes'));
 
         return $rules;
     }

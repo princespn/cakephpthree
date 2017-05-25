@@ -78,9 +78,9 @@ echo $csv->render($filename);
            <th><ul class="select-drop">
               <li class="dropdown"><a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">Category <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <?php // foreach ($categories as $category): ?>                     
-                    <li><a href="<?php // echo  $actual_link ; ?>/main_listings/category/<?php // echo rawurlencode($category->CategoryName); ?>" target="_self"><?php // echo $category->CategoryName; ?></a></li>
-                  <?php // endforeach; ?> 
+                    <?php foreach ($categories as $category): ?>                     
+                    <li><a href="<?php  echo  $actual_link ; ?>/main-listings/category/<?php  echo rawurlencode($category->CategoryName); ?>" target="_self"><?php  echo $category->CategoryName; ?></a></li>
+                  <?php  endforeach; ?> 
                 </ul>
               </li>
             </ul>
@@ -106,11 +106,11 @@ echo $csv->render($filename);
       <tbody>
       <?php foreach ($mainListings as $mainListing): ?>
         <tr>
-            <td><?php $productid = $this->Number->format($mainListing->id); if(!empty($code_listing['MainListing']['error'])){$class ='checkerror';}else{$class ='checkbox1';}
-            echo $this->Form->input('MainListing.id',array('class'=>$class, 'selected'=>'selected','label'=>'','multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox')); ?> <?php if(!empty($code_listing['MainListing']['error'])){echo "&#8595;";} ?></td>
+            <td><?php $productid = $this->Number->format($mainListing->id); if(!empty($mainListing->error)){$class ='checkerror';}else{$class ='checkbox1';}
+            echo $this->Form->input('id',array('class'=>$class, 'selected'=>'selected','label'=>false,'multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox')); ?> <?php if(!empty($mainListing->error)){echo "&#8595;";} ?></td>
             <td class="wid-20"><?= h($mainListing->linnworks_code) ?></td>
-            <td><?php // echo $code_listing['InventoryCode']['category']; ?></td>
-            <td><?php // echo $code_listing['InventoryCode']['product_name']; ?></td>  
+            <td><?= h($mainListing->inventory_code->category) ?></td>
+			  <td><?= h($mainListing->inventory_code->product_name) ?></td>          
             <td><?= h($mainListing->price_uk) ?></td>
             <td></td>
             <td></td>
@@ -123,13 +123,13 @@ echo $csv->render($filename);
               <td><?= h($mainListing->sale_price_de) ?></td>
               <td><?= h($mainListing->sale_price_de) ?></td>
                <td></td>
-                 <td><?= h($mainListing->sale_price_fr) ?></td>
-  <td><?= h($mainListing->sale_price_fr) ?></td>
-    <td><?= h($mainListing->sale_price_cdiscount) ?></td>
+                <td><?= h($mainListing->sale_price_fr) ?></td>
+				<td><?= h($mainListing->sale_price_fr) ?></td>
+				<td><?= h($mainListing->sale_price_cdiscount) ?></td>
 
-        
-                 
-     </tr>
+				
+						 
+			 </tr>
     <?php endforeach; ?>
     <?php echo $this->Form->end();?>
       </tbody>
