@@ -31,8 +31,18 @@ class AdminListingsTable extends Table
         parent::initialize($config);
 
         $this->setTable('admin_listings');
-        $this->setDisplayField('id');
+        //$this->setDisplayField('id');
         $this->setPrimaryKey('id');
+		
+					
+			$this->belongsTo('InventoryCodes', [
+            'foreignKey' => false,
+			'conditions' => 'AdminListings.linnworks_code = InventoryCodes.linnworks_code',
+            'joinType' => 'INNER'
+        ]);
+		
+	
+		
     }
 
     /**

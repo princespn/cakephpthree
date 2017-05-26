@@ -36,8 +36,9 @@ class MasterListingsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Channels', [
-            'foreignKey' => 'channel_id',
+        $this->belongsTo('InventoryCodes', [
+            'foreignKey' => false,
+			'conditions' => 'MasterListings.linnworks_code = InventoryCodes.linnworks_code',
             'joinType' => 'INNER'
         ]);
     }

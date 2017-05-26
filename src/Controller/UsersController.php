@@ -46,13 +46,16 @@ class UsersController extends AppController
                          $this->set('title', 'User login.');
                          
                         if ($this->request->is('post')) {
-                          
+                          //debug($this->Auth->identify());die();
                             $user = $this->Auth->identify();
+							
+						//	$this->request->session()->write('User.username',$user);
                             if ($user != false) {
                              
                                 $this->Auth->setUser($user);
                                 if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
                                     $user = $this->Users->get($this->Auth->user('id'));
+									
                                     $user->password = $this->request->data('password');
                                    
                                     $this->Users->save($user);

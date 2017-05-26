@@ -22,10 +22,12 @@ class MasterListingsController extends AppController
     {
 		$this->set('title', 'Master  prices details.');
 		
-
+		$categories = $this->categname();		
+		
         $this->paginate = [
-            'contain' => ['Channels']
+            'contain' => ['InventoryCodes']
         ];
+		
         $masterListings = $this->paginate($this->MasterListings);
 
         $this->set(compact('masterListings'));

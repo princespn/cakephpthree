@@ -28,16 +28,33 @@ $cakeDescription = 'Homescapes:';
 
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('dashboard.css') ?>
+	<?= $this->Html->script('responsive-tabs.js') ?>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
+	
+	<script type="text/javascript">
+      $(document).ready(function(){//alert('fsdfds');
+		$('ul.nav.nav-tabs a').click(function(e){//alert('fdsf');
+		e.preventDefault();
+		$(this).tab('show');	
+	
+	});
+    
+	});
+	</script>
+	
 </head>
 <body>   
 <div class="container-fluid">
  <?= $this->Flash->render() ?>
  <?= $this->fetch('content') ?>
 <hr>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<?php echo $this->Html->script('bootstrap.min.js'); ?> 
 <p class="text-muted">Copyright &copy; 2016 Homescapes. All rights reserved.</p>
 </div>
 </body>

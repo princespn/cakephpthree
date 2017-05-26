@@ -3,8 +3,8 @@
   * @var \App\View\AppView $this
   */
 ?>
-   <?= $this->Form->create($adminListing) ?>
-<h1 class="sub-header"><?=__('Edit Website price listings');?></h1>
+<?= $this->Form->create($adminListing) ?>
+<h1 class="sub-header"><?=__('Edit Master Website price listings');?></h1>
 <hr>
 <div class="row">
       <div class="col-lg-5 col-lg-offset-3">

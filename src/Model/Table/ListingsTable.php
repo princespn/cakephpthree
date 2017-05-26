@@ -33,6 +33,13 @@ class ListingsTable extends Table
         $this->setTable('listings');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+		
+		   $this->belongsTo('InventoryCodes', [
+            'foreignKey' => false,
+			'conditions' => 'Listings.linnworks_code = InventoryCodes.linnworks_code',
+            'joinType' => 'INNER'
+        ]);
+		
     }
 
     /**
@@ -109,6 +116,7 @@ class ListingsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['web_sku']));
+		$rules->add($rules->existsIn(['linnworks_code'], 'InventoryCodes'));
 
         return $rules;
     }

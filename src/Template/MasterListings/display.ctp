@@ -217,9 +217,11 @@ echo $csv->render($filename);
       <tbody>
 <?php foreach ($masterListings as $code_listing): ?>
         <tr>
-          
-          <td><?php //echo $code_listing['InventoryCode']['category']; ?></td>
-          <td><?php //echo $code_listing['InventoryCode']['product_name']; ?></td>      
+		<td><?php $productid = $this->Number->format($code_listing->id); if(!empty($code_listing->error)){$class ='checkerror';}else{$class ='checkbox1';}
+            echo $this->Form->input('id',array('class'=>$class, 'selected'=>'selected','label'=>false,'multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox')); ?> <?php if(!empty($code_listing->error)){echo "&#8595;";} ?></td>
+        <td class="wid-20"><?= h($code_listing->linnworks_code) ?></td>
+        <td><?= h($code_listing->inventory_code->category) ?></td>
+		<td><?= h($code_listing->inventory_code->product_name) ?></td>      
          <td class="pink-price"><?php  echo $code_listing->linnworks_code; ?></td>             
          <td  class="pink-price"><?php  echo $code_listing->price_de; ?></td>
         

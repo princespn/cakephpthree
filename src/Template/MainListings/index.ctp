@@ -6,35 +6,15 @@
 <?php
 if((!empty($_POST['checkid'])) &&(!empty($_POST['exports']))){
 
-$mapping = array('Linnworks Code','Category','Product name','Amazon SKU','Web SKU','Web UK RRP','DM RRP','Amazon UK RRP','Web Sale Price UK','Web Sale Price Tesco','Web Sale Price dm','Amazon UK Sale Price','Web DE RRP','Amazon DE RRP','Web FR RRP','Amazon FR RRP','Web DE Sale Price','Amazon DE Sale Price','Web FR Sale Price','Amazon FR Sale Price','Errors');
-echo $csv->addRow($mapping);
-
-foreach ($code_listings as $code_listing):
-$line_code = array($code_listing['MainListing']['linnworks_code']);
-$line_cate = array($code_listing['InventoryCode']['category']);
-$line_name = array($code_listing['InventoryCode']['product_name']);
-$line_ams = array($code_listing['MainListing']['amazon_sku']);
-$line_sku = array($code_listing['Listing']['web_sku']);
-$web_uk_rp = array($code_listing['Listing']['web_price_uk']);
-$tasko_rp = array($code_listing['Listing']['web_price_dm']);
-$uk_rp = array($code_listing['MainListing']['price_uk']);
-$web_uk = array($code_listing['Listing']['web_sale_price_uk']);
-$web_tasko = array($code_listing['Listing']['web_sale_price_tesco']);
-$web_dm = array($code_listing['Listing']['web_sale_price_dm']);
-$sale_price_uk = array($code_listing['MainListing']['sale_price_uk']);
-$web_rrp_de = array($code_listing['Listing']['web_price_de']);
-$rrp_de = array($code_listing['MainListing']['price_de']);
-$web_rrp_fr = array($code_listing['Listing']['web_price_fr']);
-$rrp_fr = array($code_listing['MainListing']['price_fr']);
-$web_de = array($code_listing['Listing']['web_sale_price_de']);
-$sale_price_de = array($code_listing['MainListing']['sale_price_de']);
-$web_fr = array($code_listing['Listing']['web_sale_price_fr']);
-$sale_price_fr = array($code_listing['MainListing']['sale_price_fr']);
-$sale_error = array($code_listing['MainListing']['error']);
-$line = array_merge($line_code, $line_cate,$line_name,$line_ams,$line_sku,$web_uk_rp,$tasko_rp,$uk_rp,$web_uk,$web_tasko,$web_dm,$sale_price_uk,$web_rrp_de,$rrp_de,$web_rrp_fr,$rrp_fr,$web_de,$sale_price_de,$web_fr,$sale_price_fr,$sale_error);
+$line= $price_listings[0]['Listing'];	
+//$mapping = array('','','SKU','','','','AM-UK Title','','','','','AM-UK Description','','','AM-UK Standard Price','','','','','','','AM-UK Sale from date','AM-UK Sale end date','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK bullet_point 1','AM-UK bullet_point 2','AM-UK bullet_point 3','AM-UK bullet_point 4','AM-UK bullet_point 5','AM-UK Search Terms 1','AM-UK Search Terms 2','AM-UK Search Terms 3','AM-UK Search Terms 1','AM-UK Search Terms 4','AM-UK Search Terms 5','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK Colour Map','AM-UK Size Map','','','AM-UK Material');
+//echo $csv->addRow($mapping);
+$csv->addRow(array_keys($line));
+foreach ($price_listings as $price_listing){		
+$line = $price_listing['Listing'];
 echo $csv->addRow($line);
-endforeach;
-$filename='code_listings';
+}
+$filename='prices_listings';
 echo $csv->render($filename);
 }else{	
 // echo $this->Session->flash(); ?>
@@ -44,9 +24,9 @@ echo $csv->render($filename);
  <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-      <?php  // echo $form->create('MainListing',array('action'=>'index','id'=>'saveForm')); ?>
+      <?= $this->Form->create($mainListings, ['url' => ['action' => 'index']]); ?>
         <div class="col-md-8 mobile-bottomspace">
-         <?php // echo $form->checkbox('error',array('label'=>'','value'=>'error','class'=>'wid-20')); ?><?php echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>
+         <?php echo $this->Form->control('error',array('label'=>'','type'=>'checkbox','value'=>'error','class'=>'wid-20')); ?><?php echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>
         <?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'main_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?>
          <button type="submit" disabled="disabled" value="exports" name="exports" id="exportfile" class="btn btn-primary btn-sm">Export Data</button>
         <?php echo $this->Html->link(__('Replace Or Del sku', true), array('controller' => 'main_listings', 'action' => 'repdelcode'),array('class' => 'btn btn-info btn-sm')); ?>
@@ -131,7 +111,7 @@ echo $csv->render($filename);
 						 
 			 </tr>
     <?php endforeach; ?>
-    <?php echo $this->Form->end();?>
+  <?php echo $this->Form->end();?>
       </tbody>
     </table>
   </div>

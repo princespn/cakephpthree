@@ -6,21 +6,21 @@
 <?php
 if((!empty($_POST['checkid'])) &&(!empty($_POST['exports']))){
 
-$line= $price_listings[0]['AdminListing'];	
+$line= $adminListing[0]['AdminListing'];	
 //$mapping = array('','','SKU','','','','AM-UK Title','','','','','AM-UK Description','','','AM-UK Standard Price','','','','','','','AM-UK Sale from date','AM-UK Sale end date','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK bullet_point 1','AM-UK bullet_point 2','AM-UK bullet_point 3','AM-UK bullet_point 4','AM-UK bullet_point 5','AM-UK Search Terms 1','AM-UK Search Terms 2','AM-UK Search Terms 3','AM-UK Search Terms 1','AM-UK Search Terms 4','AM-UK Search Terms 5','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK Colour Map','AM-UK Size Map','','','AM-UK Material');
 //echo $csv->addRow($mapping);
 $csv->addRow(array_keys($line));
-foreach ($price_listings as $price_listing){		
-$line = $price_listing['AdminListing'];
+foreach ($adminListings as $adminListing):		
+$line = $adminListing['AdminListing'];
 echo $csv->addRow($line);
-}
-$filename='prices_listings';
+endforeach;
+$filename='listings';
 echo $csv->render($filename);
 }else{	
 ?>
  <hr>
-<h1 class="sub-header"><?= __('Master Website Price Listing');?> </h1>
-<?php  // echo $form->create('AdminListing',array('action'=>'index','id'=>'saveForm')); ?>
+<h1 class="sub-header"><?= __('Master Website Price Listing'); ?> </h1>
+<?php  echo $this->Form->create('admin-listings', ['url' => ['action' => 'index']]); ?>
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
@@ -34,7 +34,6 @@ echo $csv->render($filename);
               <span class="search-icon"><i aria-hidden="true" class="fa fa-search"></i></span>
               <?php	echo $this->Form->input('all_item',array('label'=>'','placeholder'=>'Search Linnworks Code, Web SKU...', 'class'=>'form-control pa-left')); ?>
                 <div class="input-group-btn"><?php echo $this->Form->button('Search', array('value'=>'submit','name'=>'submit','id'=>'submit','class'=>'btn btn-primary','type'=>'submit')); ?>
-                
               </div>
             </div>
           </div>
@@ -66,9 +65,9 @@ echo $csv->render($filename);
       <tbody>
       <?php foreach ($adminListings as $adminListing): ?>
         <tr>
-		   <td><?php $productid = $this->Number->format($adminListing->id);   echo $this->Form->input('AdminListing.id',array('class'=>'checkbox1', 'selected'=>'selected','label'=>'','multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox'));  ?></td>
+		   <td><?php $productid = $this->Number->format($adminListing->id);   echo $this->Form->input('AdminListing.id',array('class'=>'checkbox1', 'selected'=>'selected','label'=>false,'multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox'));  ?></td>
                   <td><?= h($adminListing->linnworks_code) ?></td>
-				  <td><?php // echo $price_listing['InventoryCode']['category']; ?></td>
+			<td><?= h($adminListing->inventory_code->category) ?></td>
 				  <td><?= h($adminListing->web_sku) ?></td>              
                 <td><?= h($adminListing->web_price_uk) ?></td>
                 <td><?= h($adminListing->web_sale_price_uk) ?></td>
@@ -78,8 +77,7 @@ echo $csv->render($filename);
                 <td><?= h($adminListing->web_sale_price_fr) ?></td>
 				 <td><?= h($adminListing->web_sale_price_tesco) ?></td>               
                 <td><?= h($adminListing->web_price_dm) ?></td>
-                <td><?= h($adminListing->web_sale_price_dm) ?></td>
-         
+                <td><?= h($adminListing->web_sale_price_dm) ?></td>         
     <?php // if($session->read('Auth.User.group_id')!='3') { ?>
     <td><?php  echo $this->Html->link('<i aria-hidden="true" class="fa fa-edit"></i>',array('controller'=>'admin-listings','action'=>'edit', $adminListing->id),array('class'=> 'edit-btn','escape'=>false)); echo $this->Html->link('<i aria-hidden="true" class="fa fa-close"></i>', array('controller'=>'admin-listings','action' => 'delete',$adminListing->id), array('class'=> 'delete-btn','escape' => false), sprintf(__('Are you sure you want to delete # %s?', true), $adminListing->web_sku));  ?></td><?Php // } ?>
          </tr>        

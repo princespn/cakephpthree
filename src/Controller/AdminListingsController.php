@@ -22,7 +22,41 @@ class AdminListingsController extends AppController
     {
 		$this->set('title', 'Master website prices details.');
 		
+		//debug($this->request->data['submit']); die();
 		
+		 if ((!empty($this->request->data['submit'])) && (!empty($this->request->data['all_item']))) {
+			 
+			 $linkwebsku = $this->request->data['all_item'];
+			 
+			   $this->paginate = [
+			   'contain' => ['InventoryCodes'],
+        'conditions' => [
+            'AdminListings.linnworks_code LIKE' => '%' . $linkwebsku . '%'
+						]
+					];
+			 
+			 
+	}else if ((!empty($this->request->data['exports'])) && (!empty($this->request->data['checkid']))) {
+		
+		 $checkboxid = $this->request->data['checkid'];
+            //App::import("Vendor", "parsecsv");
+			require_once(ROOT. DS.'Vendor'. DS .'parsecsv'. DS.'parsecsv.lib');
+            $csv = new parseCSV();
+            $filepath = "C:\Users\Administrator\Downloads" . "listings.csv";
+            $csv->auto($filepath);
+            $this->set('adminListings', $this->AdminListing->find('all', array('AdminListing.id ASC', 'conditions' => array('AdminListing.id' => $checkboxid))));
+            $this->layout = null;
+            $this->autoLayout = false;
+            Configure::write('debug', '2');
+		
+		
+		
+	}else{
+		
+		$this->paginate = [
+            'contain' => ['InventoryCodes']
+        ];
+	}
         $adminListings = $this->paginate($this->AdminListings);
 
         $this->set(compact('adminListings'));
