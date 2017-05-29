@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use parseCSV;
 
 /**
  * AdminListings Controller
@@ -40,7 +41,8 @@ class AdminListingsController extends AppController
 		
 		 $checkboxid = $this->request->data['checkid'];
             //App::import("Vendor", "parsecsv");
-			require_once(ROOT. DS.'Vendor'. DS .'parsecsv'. DS.'parsecsv.lib');
+		
+			require_once(ROOT. DS.'Vendor'. DS .'parsecsv.php');
             $csv = new parseCSV();
             $filepath = "C:\Users\Administrator\Downloads" . "listings.csv";
             $csv->auto($filepath);
