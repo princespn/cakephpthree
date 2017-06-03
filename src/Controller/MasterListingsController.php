@@ -18,7 +18,7 @@ class MasterListingsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function display()
+    public function index()
     {
 		$this->set('title', 'Master  prices details.');
 		

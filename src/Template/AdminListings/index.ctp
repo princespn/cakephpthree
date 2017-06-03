@@ -4,18 +4,16 @@
   */
 ?>
 <?php
-if((!empty($_POST['checkid'])) &&(!empty($_POST['exports']))){
-
-$line= $adminListing[0]['AdminListing'];	
-//$mapping = array('','','SKU','','','','AM-UK Title','','','','','AM-UK Description','','','AM-UK Standard Price','','','','','','','AM-UK Sale from date','AM-UK Sale end date','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK bullet_point 1','AM-UK bullet_point 2','AM-UK bullet_point 3','AM-UK bullet_point 4','AM-UK bullet_point 5','AM-UK Search Terms 1','AM-UK Search Terms 2','AM-UK Search Terms 3','AM-UK Search Terms 1','AM-UK Search Terms 4','AM-UK Search Terms 5','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','AM-UK Colour Map','AM-UK Size Map','','','AM-UK Material');
-//echo $csv->addRow($mapping);
-$csv->addRow(array_keys($line));
-foreach ($adminListings as $adminListing):		
-$line = $adminListing['AdminListing'];
-echo $csv->addRow($line);
+if ((!empty($this->request->data['exports'])) && (!empty($this->request->data['checkid']))) {
+	
+foreach ($data as $row):
+	foreach ($row['AdminListing'] as &$cell):
+		// Escape double quotation marks
+		$cell = '"' . preg_replace('/"/','""',$cell) . '"';
+	endforeach;
+	echo implode(',', $row['AdminListing']) . "\n";
 endforeach;
-$filename='listings';
-echo $csv->render($filename);
+
 }else{	
 ?>
  <hr>
@@ -27,7 +25,13 @@ echo $csv->render($filename);
         <div class="col-md-8 mobile-bottomspace">
          <?php // if($session->read('Auth.User.group_id')!='3') { ?><?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'admin_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?><?php // } ?>
          <button type="submit" disabled="disabled" value="exports" name="exports" id="exportfile" class="btn btn-primary btn-sm">Export Data</button>
-        </div>
+       <?php echo $this->Html->link('export', [
+	'controller' => 'admin-listings', 
+	'action' => 'export',
+	'_ext' => 'csv'
+]) ?>
+
+	   </div>
           <div class="col-md-4">
           <div class="form-group margin-bottom-0">
             <div class="input-group">

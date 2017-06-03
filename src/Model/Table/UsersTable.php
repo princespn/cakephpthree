@@ -31,7 +31,6 @@ class UsersTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-	 
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -49,7 +48,6 @@ class UsersTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-	 
     public function validationDefault(Validator $validator)
     {
         $validator

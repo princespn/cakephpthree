@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use parseCSV;
+use Cake\View\View;
+use Cake\View\ViewBuilder;
 
 /**
  * AdminListings Controller
@@ -13,6 +14,7 @@ use parseCSV;
  */
 class AdminListingsController extends AppController
 {
+
 
     /**
      * Index method
@@ -40,17 +42,15 @@ class AdminListingsController extends AppController
 	}else if ((!empty($this->request->data['exports'])) && (!empty($this->request->data['checkid']))) {
 		
 		 $checkboxid = $this->request->data['checkid'];
-            //App::import("Vendor", "parsecsv");
-		
-			require_once(ROOT. DS.'Vendor'. DS .'parsecsv.php');
-            $csv = new parseCSV();
-            $filepath = "C:\Users\Administrator\Downloads" . "listings.csv";
-            $csv->auto($filepath);
-            $this->set('adminListings', $this->AdminListing->find('all', array('AdminListing.id ASC', 'conditions' => array('AdminListing.id' => $checkboxid))));
-            $this->layout = null;
-            $this->autoLayout = false;
-            Configure::write('debug', '2');
-		
+       		
+      $this->response->download('export.csv');
+		$data = $this->AdminListings->find('all')->toArray();
+		$_serialize = 'data';
+   		$this->set(compact('data', '_serialize'));
+		$this->viewBuilder()->className('CsvView.Csv');
+		return;
+
+      	
 		
 		
 	}else{

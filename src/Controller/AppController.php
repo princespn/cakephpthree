@@ -28,6 +28,7 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+
 public function token_value(){
 
         $auth_data = array(
@@ -97,8 +98,7 @@ public function token_value(){
             'authorize' => ['Controller'],
             'loginRedirect' => [
                 'controller' => 'MasterListings', 
-                'action' => 'display',
-                'home'
+                'action' => 'index'
             ],
             'logoutRedirect' => [
                 'controller' => 'Users', 

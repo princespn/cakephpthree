@@ -25,6 +25,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
+	 
     public function index()
     {
 		$this->set('title', 'User details.');
