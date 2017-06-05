@@ -43,8 +43,10 @@ class AdminListingsController extends AppController
 		
 		 $checkboxid = $this->request->data['checkid'];
        		
-      $this->response->download('export.csv');
+		$this->response->download('export.csv');
 		$data = $this->AdminListings->find('all')->toArray();
+		//$data = $this->AdminListing->find('all', array('AdminListing.id ASC', 'conditions' => array('AdminListing.id' => $checkboxid))));
+           
 		$_serialize = 'data';
    		$this->set(compact('data', '_serialize'));
 		$this->viewBuilder()->className('CsvView.Csv');

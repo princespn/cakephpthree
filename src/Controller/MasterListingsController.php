@@ -22,12 +22,38 @@ class MasterListingsController extends AppController
     {
 		$this->set('title', 'Master  prices details.');
 		
-		$categories = $this->categname();		
+		$categories = $this->categname();	
+
+	 if ((!empty($this->request->data['submit'])) && (!empty($this->request->data['all_item']))) {
+			 
+			 $linkwebsku = $this->request->data['all_item'];
+			 		
+		 $this->paginate = [
+			   'contain' => ['InventoryCodes'],
+        'conditions' => [
+            'MasterListings.linnworks_code LIKE' => '%' . $linkwebsku . '%'
+						]
+					];
+					
+		}else if ((!empty($this->request->data['exports'])) && (!empty($this->request->data['checkid']))) {
 		
-        $this->paginate = [
+		 $checkboxid = $this->request->data['checkid'];
+       		
+		$this->response->download('export.csv');
+		$data = $this->MasterListings->find('all')->toArray();
+		//$data = $this->MasterListings->find('all', array('MasterListings.id ASC', 'conditions' => array('MasterListings.id' => $checkboxid))));
+           
+		$_serialize = 'data';
+   		$this->set(compact('data', '_serialize'));
+		$this->viewBuilder()->className('CsvView.Csv');
+		return;
+		
+		}else {
+			$this->paginate = [
             'contain' => ['InventoryCodes']
         ];
 		
+		}
         $masterListings = $this->paginate($this->MasterListings);
 
         $this->set(compact('masterListings'));

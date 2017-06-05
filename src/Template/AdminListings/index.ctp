@@ -25,13 +25,7 @@ endforeach;
         <div class="col-md-8 mobile-bottomspace">
          <?php // if($session->read('Auth.User.group_id')!='3') { ?><?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'admin_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?><?php // } ?>
          <button type="submit" disabled="disabled" value="exports" name="exports" id="exportfile" class="btn btn-primary btn-sm">Export Data</button>
-       <?php echo $this->Html->link('export', [
-	'controller' => 'admin-listings', 
-	'action' => 'export',
-	'_ext' => 'csv'
-]) ?>
-
-	   </div>
+       </div>
           <div class="col-md-4">
           <div class="form-group margin-bottom-0">
             <div class="input-group">
@@ -69,7 +63,7 @@ endforeach;
       <tbody>
       <?php foreach ($adminListings as $adminListing): ?>
         <tr>
-		   <td><?php $productid = $this->Number->format($adminListing->id);   echo $this->Form->input('AdminListing.id',array('class'=>'checkbox1', 'selected'=>'selected','label'=>false,'multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox'));  ?></td>
+		   <td><?php $productid = $this->Number->format($adminListing->id);   echo $this->Form->input('id',array('class'=>'checkbox1', 'selected'=>'selected','label'=>false,'multiple' => 'checkbox', 'value' =>$productid,'name'=>'checkid[]', 'type'=>'checkbox'));  ?></td>
                   <td><?= h($adminListing->linnworks_code) ?></td>
 			<td><?= h($adminListing->inventory_code->category) ?></td>
 				  <td><?= h($adminListing->web_sku) ?></td>              
@@ -93,14 +87,13 @@ endforeach;
  <hr>
      <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
    
-       <ul class="pagination pagination-sm margin-0">
+<ul class="pagination pagination-sm margin-0">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-
+ </ul>
 
 <script type="text/javascript">
     document.getElementById("AdminListingCategory").onchange = function () {

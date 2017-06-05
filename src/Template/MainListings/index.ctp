@@ -24,7 +24,7 @@ echo $csv->render($filename);
  <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-      <?= $this->Form->create($mainListings, ['url' => ['action' => 'index']]); ?>
+   <?php  echo $this->Form->create('main-listings', ['url' => ['action' => 'index']]); ?>
         <div class="col-md-8 mobile-bottomspace">
          <?php echo $this->Form->control('error',array('label'=>'','type'=>'checkbox','value'=>'error','class'=>'wid-20')); ?><?php echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>
         <?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'main_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?>

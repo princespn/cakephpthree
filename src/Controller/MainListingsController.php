@@ -25,10 +25,36 @@ class MainListingsController extends AppController
 		
 		$categories = $this->categname();
 		
+		 if ((!empty($this->request->data['submit'])) && (!empty($this->request->data['all_item']))) {
+			 
+			 $linkwebsku = $this->request->data['all_item'];
+			 		
+		 $this->paginate = [
+			   'contain' => ['InventoryCodes'],
+        'conditions' => [
+            'MainListings.linnworks_code LIKE' => '%' . $linkwebsku . '%'
+						]
+					];
+					
+		}else if ((!empty($this->request->data['exports'])) && (!empty($this->request->data['checkid']))) {
 		
-        $this->paginate = [
+		 $checkboxid = $this->request->data['checkid'];
+       		
+		$this->response->download('export.csv');
+		$data = $this->MainListings->find('all')->toArray();
+		//$data = $this->MainListings->find('all', array('MainListings.id ASC', 'conditions' => array('MainListings.id' => $checkboxid))));
+           
+		$_serialize = 'data';
+   		$this->set(compact('data', '_serialize'));
+		$this->viewBuilder()->className('CsvView.Csv');
+		return;
+		
+		}else {
+			$this->paginate = [
             'contain' => ['InventoryCodes']
         ];
+		
+		}
 		
         $mainListings = $this->paginate($this->MainListings);
 

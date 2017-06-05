@@ -153,7 +153,7 @@ echo $csv->render($filename);
 <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-      <?php  //echo $form->create('MasterListing',array('action'=>'index','id'=>'saveForm')); ?>
+ <?php  echo $this->Form->create('master-listings', ['url' => ['action' => 'index']]); ?>
         <div class="col-md-8 mobile-bottomspace">
          <!--<?php //echo $form->checkbox('error',array('label'=>'','value'=>'error','class'=>'wid-20')); ?><?php //echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>-->
         <?php //if($session->read('Auth.User.group_id')!='3') { ?><?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'master_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?><?php // } ?>
@@ -223,13 +223,12 @@ echo $csv->render($filename);
         <td><?= h($code_listing->inventory_code->category) ?></td>
 		<td><?= h($code_listing->inventory_code->product_name) ?></td>      
          <td class="pink-price"><?php  echo $code_listing->linnworks_code; ?></td>             
-         <td  class="pink-price"><?php  echo $code_listing->price_de; ?></td>
-        
+         <td  class="pink-price"><?php  echo $code_listing->price_de; ?></td>     
     
    
         </tr>
     <?php endforeach; ?>
-    <?php echo $this->Form->end();?>
+<?php echo $this->Form->end();?>
       </tbody>
     </table>
   </div>
@@ -244,4 +243,26 @@ echo $csv->render($filename);
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
    </nav>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"                 
+                 $('#exportfile').removeAttr('disabled');
+			
+            });
+			
+        }else{
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+		$('#exportfile').attr("disabled", "disabled");
+				
+            }); 
+			
+        }
+    });
+   
+});
+</script>
 <?php } 
