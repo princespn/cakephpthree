@@ -116,6 +116,7 @@ public function token_value(){
                                               
                 ]
             ],
+			
             'authError' => 'you are not Authorise to Acccess this location.',
             'storage' => 'Session'
         ]);
@@ -131,7 +132,7 @@ public function token_value(){
 	
 	 public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index','add', 'view', 'display']);
+        $this->Auth->allow(['index','add','login', 'view', 'display']);
     }
     
     public function isAuthorized($user)

@@ -149,4 +149,36 @@ class MainListingsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+	
+	public function importcode()
+    {
+		
+            $this->set('title', 'Import CSV in Database system.');
+
+                if (!empty($this->request->data)) {
+                $filename = $this->request->data['file']['name'];
+                $fileExt = explode(".", $filename);
+                $fileExt2 = end($fileExt);
+               // print_r($this->request->data['file']['name']); die();
+
+                if ($fileExt2 == 'csv') {
+                if (move_uploaded_file($this->request->data['file']['tmp_name'], WWW_ROOT . '/files/' .$this->request->data['file']['name']))
+                $messages = $this->MainListings->importcode($filename);
+                $this->Flash->set('Imports data successfully.', ['element' => 'success']);
+                if (!empty($messages)) {
+                $this->set('anything', $messages);
+                Configure::write('debug', '2');
+                }
+                } else {
+					
+				$this->Flash->set('File format not supported,Please upload .CSV file format only.', ['element' => 'error']);
+
+                
+                }
+                } else {
+                //$filename = 'Product Code.csv';
+                //$messages = Product Code($filename);
+                }  
+
+    }
 }

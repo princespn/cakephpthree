@@ -18,7 +18,7 @@ class UsersController extends AppController
                     {
                     parent::beforeFilter($event);
 
-                    $this->Auth->allow(['add', 'logout','index']);
+                    $this->Auth->allow(['add', 'logout','index'],'delete');
                 }
     /**
      * Index method
@@ -47,7 +47,7 @@ class UsersController extends AppController
                          $this->set('title', 'User login.');
                          
                         if ($this->request->is('post')) {
-                          //debug($this->Auth->identify());die();
+                        // debug($this->Auth->identify());die();
                             $user = $this->Auth->identify();
 							
 						//	$this->request->session()->write('User.username',$user);
@@ -55,16 +55,15 @@ class UsersController extends AppController
                              
                                 $this->Auth->setUser($user);
                                 if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-                                    $user = $this->Users->get($this->Auth->user('id'));
-									
-                                    $user->password = $this->request->data('password');
-                                   
+                                    $user = $this->Users->get($this->Auth->user('id'));									
+                                    $user->password = $this->request->data('password');                                   
                                     $this->Users->save($user);
                                 }
                                 return $this->redirect($this->Auth->redirectUrl());
                             }else{
-                                
-                                $this->Flash->error( __('Invalid username or password, try again'), ['key'=>'auth']);
+								
+								$this->Flash->set('Invalid username or password,try again', ['element' => 'error']);
+                              
                             }
                         }
                     }
@@ -100,11 +99,13 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+				$this->Flash->set('The user has been saved!', ['element' => 'success']);
+                
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+			$this->Flash->set('The user could not be saved. Please, try again.!', ['element' => 'error']);
+               
+           
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
@@ -146,7 +147,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['get', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
@@ -168,8 +169,9 @@ class UsersController extends AppController
 	
 	    public function logout(){
                     $session = $this->request->session();
-                    $session->destroy();
-                    $this->Flash->success(__('The User has been logout!'));
-                    return $this->redirect($this->Auth->logout());
+					$session->destroy();
+					$this->Auth->logout();                   
+					$this->Flash->set('The User has been logout!', ['element' => 'success']);
+                   return $this->redirect($this->Auth->logout());
                 }
 }

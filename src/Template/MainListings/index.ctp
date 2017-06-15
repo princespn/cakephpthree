@@ -26,7 +26,7 @@ echo $csv->render($filename);
       <div class="row">
    <?php  echo $this->Form->create('main-listings', ['url' => ['action' => 'index']]); ?>
         <div class="col-md-8 mobile-bottomspace">
-         <?php echo $this->Form->control('error',array('label'=>'','type'=>'checkbox','value'=>'error','class'=>'wid-20')); ?><?php echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>
+         <?php echo $this->Form->control('error',array('label'=>'','type'=>'checkbox','value'=>'error','class'=>'wid-20')); ?><?= $this->Paginator->sort('error') ?><?php // echo $this->Paginator->sort('Error', 'error', array('direction' => 'desc','class'=>'btn btn-info btn-sm')); ?>
         <?php echo $this->Html->link(__('Import Prices', true), array('controller' => 'main_listings', 'action' => 'importcode'),array('class' => 'btn btn-info btn-sm')); ?>
          <button type="submit" disabled="disabled" value="exports" name="exports" id="exportfile" class="btn btn-primary btn-sm">Export Data</button>
         <?php echo $this->Html->link(__('Replace Or Del sku', true), array('controller' => 'main_listings', 'action' => 'repdelcode'),array('class' => 'btn btn-info btn-sm')); ?>
@@ -126,7 +126,7 @@ echo $csv->render($filename);
 </ul>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#MainListingError').click(function(event) {  //on click
+    $('#error').click(function(event) {  //on click
         if(this.checked) { // check select status
             $('.checkerror').each(function() { //loop through each checkbox
                 this.checked = true;  //select all checkboxes with class "checkbox1" 
@@ -151,7 +151,7 @@ $(document).ready(function() {
             $('.checkbox1').each(function() { //loop through each checkbox
                 this.checked = true;  //select all checkboxes with class "checkbox1" 
 		$('#exportfile').removeAttr('disabled');
-		$('#MainListingError').attr('disabled','disabled');
+		$('#error').attr('disabled','disabled');
             });
 		$('.checkerror').each(function() { //loop through each checkbox
                 this.checked = true;  //select all checkboxes with class "checkbox1" 
@@ -161,7 +161,7 @@ $(document).ready(function() {
             $('.checkbox1').each(function() { //loop through each checkbox
                 this.checked = false; //deselect all checkboxes with class "checkbox1"                      
 		$('#exportfile').attr("disabled", "disabled");
-		$('#MainListingError').removeAttr('disabled','disabled');
+		$('#error').removeAttr('disabled','disabled');
             }); 
 		$('.checkerror').each(function() { //loop through each checkbox
                 this.checked = false; //deselect all checkboxes with class "checkbox1"                      
