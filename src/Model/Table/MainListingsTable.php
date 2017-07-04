@@ -138,7 +138,7 @@ class MainListingsTable extends Table
 	public function importcode($filename) {
 		$i = null;
         $error = null;
-        $filename = $_SERVER['DOCUMENT_ROOT'] . '/app/webroot/files/' . $filename;
+        $filename = WWW_ROOT . '/files/' . $filename;
         $handle = fopen($filename, "r");
         $header = fgetcsv($handle);
         $return = array(
@@ -161,7 +161,8 @@ class MainListingsTable extends Table
             }
 
             $id = isset($row[0]) ? $row[0] : 0;
-            $cid = isset($row[1]) ? $row[1] : 1;           
+            $cid = isset($row[1]) ? $row[1] : 1;   
+		//print_r($id);die();			
             if ((!empty($id)) && (!empty($cid))) {
 
                 $pcodes = $this->find('all', array('conditions' => array('MainListing.amazon_sku' => $id,'MainListing.channel_id' => $cid)));
